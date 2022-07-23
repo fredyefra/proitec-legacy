@@ -8,11 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
 @Entity
-public class Cliente implements Serializable  {
+public class Cliente extends AbstractPersistable<Long> implements Serializable    {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long identificador;
 	private String nome;
 	private String endereco;
