@@ -1,19 +1,19 @@
 package br.com.proitec.legacy;
-
-import br.com.proitec.legacy.controller.ClienteResource;
-import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.inject.Inject;
-
-
+import static io.restassured.RestAssured.given;
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class ClientResourceTest {
-
-
-
-    @Test
+@Test
     public void deveTestarGet(){
-        ClienteResource clienteResource = new ClienteResource();
-        Assert.assertNotNull(clienteResource.findAll());
+        given().
+                when().
+                get("/pages/consultar-clientes").
+                then().
+                statusCode(200);
     }
 }
