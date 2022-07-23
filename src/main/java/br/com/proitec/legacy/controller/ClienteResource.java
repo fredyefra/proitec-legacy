@@ -40,7 +40,7 @@ public class ClienteResource {
 	}
 
 	@RequestMapping(value = "/cadastrar-cliente", method = RequestMethod.POST)
-	public ModelAndView save(@ModelAttribute Cliente cliente, BindingResult validate, Model model) {
+	public ModelAndView save(@ModelAttribute Cliente cliente) {
 
 		//if (validate.hasErrors()) { 
 		//ModelAndView mv = new  ModelAndView("pages/cadastrar-cliente"); 

@@ -27,6 +27,21 @@
 
     <dependencies>
         <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured-all</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>4.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured-common</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
@@ -143,21 +158,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>4.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured-common</artifactId>
-            <version>4.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured-all</artifactId>
-            <version>4.1.1</version>
         </dependency>
 
     </dependencies>
