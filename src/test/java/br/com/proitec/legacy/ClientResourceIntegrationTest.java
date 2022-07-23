@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static io.restassured.RestAssured.given;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class ClientResourceTest {
+public class ClientResourceIntegrationTest {
 
 Cliente clienteStub= new Cliente(
         10L,
