@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorator="layout">
+<head>
+    <title>Home</title>
+</head>
+<body>
+<section layout:fragment="content">
+
+    <div class="row">
+         
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">CADASTRAR CLIENTE</h4>
+                    <form class="form-sample" th:object="${cliente}" action="#" th:action="@{/pages/cadastrar-cliente}" method="post">
+                        <p class="card-description">
+                            Informações Pessoais
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label for="nome" class="col-sm-3 col-form-label">Nome</label>
+                                    <div class="col-sm-9">
+                                        <input id="nome" th:field="*{nome}"  type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Sexo</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control">
+                                            <option>Masculino</option>
+                                            <option>Feminino</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Telefone</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" th:field="*{telefone}" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">E-mail</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" th:field="*{email}"  class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="card-description">
+                            Informações Endereço
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Cep</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Endereço</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" th:field="*{endereco}" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Complemento</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Cidade</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     
+                     <div class="container my-4 text-center">
+						<button type="submit" class="btn btn-success mr-2">NOVO</button>
+						<a class="btn btn-danger" th:href="@{/pages/dashboard}" role="button">CANCELAR<i class="fab fa-github ms-2"></i></a>
+					</div>  
+                     
+                         
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+
+</section>
+</body>
+</html>
