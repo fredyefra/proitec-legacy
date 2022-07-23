@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import br.com.proitec.legacy.model.Cliente;
+import br.com.proitec.legacy.model.Cliente_;
 import br.com.proitec.legacy.repository.ClienteRepository;
 
 @Service
@@ -23,7 +24,6 @@ public class ClienteService {
 	private ClienteRepository repository;
 
 	/**
-	 * 
 	 * @return {@code Collection List}
 	 */
 	public List<Cliente> findAll() { 
@@ -31,19 +31,16 @@ public class ClienteService {
 	}
 
 	/**
-	 * 
 	 * @param {@link int, int}
 	 * @return {@code Page}
 	 */
 	public Page<Cliente> findAll(int pageNum,int pageSize) { 
-		Sort sort = Sort.by(Direction.ASC,"identificador");
+		Sort sort = Sort.by(Direction.ASC,Cliente_.identificador.toString());
 		Pageable pageable = PageRequest.of(pageNum, pageSize, sort);
-
 		return repository.findAll(pageable); 
 	}
 
 	/**
-	 * 
 	 * @param {@link Long}
 	 * @return {@code Optional}
 	 */
@@ -53,7 +50,7 @@ public class ClienteService {
 	}
 
 	/**
-	 * if id null jpa update object
+	 * if id null jpa save object
 	 * 
 	 * @param {@link Cliente}
 	 * @return {@code Cliente}
@@ -71,8 +68,7 @@ public class ClienteService {
 		for (Cliente entity : entities) {
 			result.add(save(entity));
 		}
-
-		return result;
+     	return result;
 	}
 
     /**
@@ -87,9 +83,8 @@ public class ClienteService {
 		return repository.save(cliente);
 	}
 
-
 	/**
-	 * if id exist jpa update object
+	 * if id exist jpa delete object
 	 * 
 	 * @param {@link Long}
 	 * @return {@code void}
