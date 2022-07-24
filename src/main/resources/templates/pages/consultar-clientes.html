@@ -3,6 +3,17 @@
 	xmlns:th="http://www.w3.org/1999/xhtml" layout:decorator="layout">
 <head>
 <title>Home</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+$(document).ready(function(){
+  $("#clickDiv").click(function(){
+    $("#clickDiv").fadeOut("slow");
+  });
+});
+</script>
+
 </head>
 <body>
 	<section layout:fragment="content">
@@ -11,6 +22,9 @@
 			<div class="col-lg-12 grid-margin stretch-card">
 				<div class="card">
 					<div class="card-body">
+						
+						<div id="clickDiv" class="alert alert-primary" role="alert" th:text="${message}" th:if="${message}"></div>
+						
 						<h4 class="card-title">CLIENTES CADASTRADOS</h4>
 
 						<a href="cadastrar-cliente">

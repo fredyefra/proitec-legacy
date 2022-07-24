@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
@@ -40,21 +44,26 @@ public class Cliente extends AbstractPersistable<Long> implements Serializable  
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getIdentificador() {return identificador;}
-
 	public void setIdentificador(Long identificador) {this.identificador = identificador;}
-
+   
+	@Length(min = 3, max = 30, message = "Digite entre 3 e 30 letras.")
+	@NotBlank (message = "Campo obrigatório!")
+	@Pattern(regexp = "^[a-zA-Z\\s]*$", message = "Digite somente letras.")
 	public String getNome() {return nome;}
 	public void setNome(String nome) {this.nome = nome;}
 
 	public String getEndereco() {return endereco;}
 	public void setEndereco(String endereco) {this.endereco = endereco;}
 
+	@NotBlank (message = "Campo obrigatório!")
 	public String getTelefone() {return telefone;}
 	public void setTelefone(String telefone) {this.telefone = telefone;}
 
 	public LocalDate getDtCadastro() {return dtCadastro;}
 	public void setDtCadastro(LocalDate dtCadastro) {this.dtCadastro = dtCadastro;}
 
+	@Email(message = "Formato de email inválido!")
+	@NotBlank (message = "Campo obrigatório!")
 	public String getEmail() {	return email;}
 	public void setEmail(String email) {this.email = email;}
 	
