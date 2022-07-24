@@ -22,7 +22,8 @@
                                 <div class="form-group row">
                                     <label for="nome" class="col-sm-3 col-form-label">Nome</label>
                                     <div class="col-sm-9">
-                                        <input id="nome" th:field="*{nome}"  type="text" class="form-control" />
+                                        <input id="nome" th:field="*{nome}"  type="text" class="form-control" th:errorclass="is-invalid" />
+                                        <div class="invalid-feedback" th:errors="*{nome}"></div>
                                     </div>
                                 </div>
                             </div>
@@ -44,7 +45,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Telefone</label>
                                     <div class="col-sm-9">
-                                        <input type="text" th:field="*{telefone}" class="form-control" />
+                                        <input type="text" th:field="*{telefone}" class="form-control" th:errorclass="is-invalid"/>
+                                        <div class="invalid-feedback" th:errors="*{telefone}"></div>
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +54,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">E-mail</label>
                                     <div class="col-sm-9">
-                                        <input type="text" th:field="*{email}"  class="form-control" />
+                                        <input type="text" th:field="*{email}"  class="form-control" th:errorclass="is-invalid" />
+                                        <div class="invalid-feedback" th:errors="*{email}"></div>
                                     </div>
                                 </div>
                             </div>
