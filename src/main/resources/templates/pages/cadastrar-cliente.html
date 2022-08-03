@@ -3,8 +3,13 @@
       layout:decorator="layout">
 <head>
     <title>Home</title>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 </head>
 <body>
+
 <section layout:fragment="content">
 
     <div class="row">
@@ -66,35 +71,35 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Cep</label>
+                                    <label for="cep" class="col-sm-3 col-form-label">Cep</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" />
+                                        <input id="cep" type="text" th:field="*{endereco.cep}"  class="form-control" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Endereço</label>
+                                    <label  for="bairro" class="col-sm-3 col-form-label">Bairro</label>
                                     <div class="col-sm-9">
-                                        <input type="text" th:field="*{endereco}" class="form-control" />
+                                        <input id="bairro" type="text" th:field="*{endereco.bairro}" class="form-control" readonly="readonly" />
                                     </div>
                                 </div>
-                            </div>
+                            </div> 
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Complemento</label>
+                                    <label  for="complemento" class="col-sm-3 col-form-label">Complemento</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" />
+                                        <input  id="complemento" type="text" th:field="*{endereco.complemento}" class="form-control" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Cidade</label>
+                                    <label for="logradouro"  class="col-sm-3 col-form-label">Logradouro</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" />
+                                        <input id="logradouro"  type="text" th:field="*{endereco.logradouro}" class="form-control" readonly="readonly"/>
                                     </div>
                                 </div>
                             </div>
@@ -105,14 +110,35 @@
 						<a class="btn btn-danger" th:href="@{/pages/dashboard}" role="button">CANCELAR<i class="fab fa-github ms-2"></i></a>
 					</div>  
                      
-                         
                     </form>
-                </div>
+
+                        <!-- Refatorar script -->
+						<script type="text/javascript">
+							$("#cep").focusout(
+									function() {
+										
+										$.ajax({
+											//URL via cep mais parametro para consulta
+											url : 'https://viacep.com.br/ws/'+ $(this).val() + '/json/',
+											dataType : 'json',
+											
+											success : function(resposta) {
+												
+												$("#logradouro").val(resposta.logradouro);
+												$("#complemento").val(resposta.complemento);
+												$("#bairro").val(resposta.bairro);
+												
+												$("#complemento").focus();
+											}
+										});
+									});
+						</script>
+
+					</div>
             </div>
         </div>
         
     </div>
-
 
 </section>
 </body>

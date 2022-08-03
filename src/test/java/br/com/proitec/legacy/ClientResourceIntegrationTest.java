@@ -10,13 +10,10 @@ import static io.restassured.RestAssured.given;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class ClientResourceIntegrationTest {
 
-Cliente clienteStub= new Cliente(
-        10L,
-        "Tião",
-        "Rua das flores",
-        "99-9999999",
-        "tiao@tiao.com.br");
-
+	/*
+	 * Cliente clienteStub= new Cliente( 10L, "Tião", "Rua das flores",
+	 * "99-9999999", "tiao@tiao.com.br");
+	 */
 @Test
     public void deveTestarGetAll(){
         given().

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.proitec.legacy.enderecows.EnderecoConsumer;
 import br.com.proitec.legacy.model.Cliente;
 import br.com.proitec.legacy.service.ClienteService;
 
@@ -22,6 +23,9 @@ public class ClienteResource {
 	@Autowired
 	private ClienteService service;
 
+	@Autowired
+	private EnderecoConsumer enderecoConsumer;
+	
 	@GetMapping(value = "/consultar-clientes") 
 	public ModelAndView  findAll() {
 		ModelAndView mv = new ModelAndView(); 
@@ -36,7 +40,7 @@ public class ClienteResource {
 	}
     
 	@RequestMapping(value = "/cadastrar-cliente", method = RequestMethod.POST)
-	public ModelAndView save(@Valid Cliente cliente, BindingResult validate, RedirectAttributes attributes) {
+	public ModelAndView save(@Valid Cliente cliente, BindingResult validate, Model model, RedirectAttributes attributes) {
 
 		if (validate.hasErrors()) { 
 		ModelAndView mv = new  ModelAndView("pages/cadastrar-cliente"); 
@@ -48,4 +52,5 @@ public class ClienteResource {
 
 		return new ModelAndView("redirect:/pages/consultar-clientes");
 	}
+
 }
