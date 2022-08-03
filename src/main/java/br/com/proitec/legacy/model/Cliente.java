@@ -3,16 +3,22 @@ package br.com.proitec.legacy.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+
+import br.com.proitec.legacy.enderecows.EnderecoWS;
 
 @Entity
 public class Cliente extends AbstractPersistable<Long> implements Serializable    {
@@ -23,22 +29,22 @@ public class Cliente extends AbstractPersistable<Long> implements Serializable  
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long identificador;
 	private String nome;
-	private String endereco;
 	private String telefone;
     private String email;
-	
+    private EnderecoWS endereco;
+    
 	private LocalDate dtCadastro;
 
 	public Cliente() {
 
 	}
 
-	public Cliente(Long identificador, String nome, String endereco, String telefone, String email) {
+	public Cliente(Long identificador, String nome,  String telefone, String email, EnderecoWS endereco) {
 		this.identificador = identificador;
 		this.nome = nome;
-		this.endereco = endereco;
 		this.telefone = telefone;
 	    this.email = email;
+	    this.endereco = endereco;
 	}
 
 	@Id
@@ -52,8 +58,6 @@ public class Cliente extends AbstractPersistable<Long> implements Serializable  
 	public String getNome() {return nome;}
 	public void setNome(String nome) {this.nome = nome;}
 
-	public String getEndereco() {return endereco;}
-	public void setEndereco(String endereco) {this.endereco = endereco;}
 
 	@NotBlank (message = "Campo obrigatório!")
 	public String getTelefone() {return telefone;}
@@ -66,6 +70,19 @@ public class Cliente extends AbstractPersistable<Long> implements Serializable  
 	@NotBlank (message = "Campo obrigatório!")
 	public String getEmail() {	return email;}
 	public void setEmail(String email) {this.email = email;}
+	
+	//@OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER) 
+	//@JoinTable(
+		//	name="CLIENTE_ENDERECO",
+		//	joinColumns=
+		//	@JoinColumn(name="cliente_fk", referencedColumnName="identificador"),
+		//	inverseJoinColumns=
+		//	@JoinColumn(name="endereco_fk", referencedColumnName="identificador")
+	//)
+	@OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER) 
+	@JoinColumn(name = "ENDERECO_FK")
+	public  EnderecoWS getEndereco() {return endereco;}
+	public void setEndereco(EnderecoWS endereco) {this.endereco = endereco;}
 	
 	@Override
 	public int hashCode() {
