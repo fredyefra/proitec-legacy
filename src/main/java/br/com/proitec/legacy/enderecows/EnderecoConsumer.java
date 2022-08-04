@@ -15,15 +15,14 @@ public class EnderecoConsumer implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private EnderecoWS endereco = new EnderecoWS();
+	private EnderecoWS endereco;
 	
 	public EnderecoWS enderecoConsumer(String cep) {
 		
 		try {
 			com.sun.jersey.api.client.Client client = Client.create();
 			com.sun.jersey.api.client.WebResource resource = client.resource("https://viacep.com.br/viacep.com.br/ws/"+cep+"/json/");
-					//.queryParam("cep", cep);
-			
+					
 			String json = resource.get(String.class);
 			Gson gson = new Gson();
 			Type type = new TypeToken<EnderecoWS>(){}.getType();
@@ -31,6 +30,7 @@ public class EnderecoConsumer implements Serializable {
 			
 		} catch (UniformInterfaceException e) {
 			System.out.println("CEP não localizado!" + e);
+		    endereco = new EnderecoWS();
 		}
 		
 		return endereco;
