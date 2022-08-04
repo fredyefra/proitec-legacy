@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class EnderecoWS implements Serializable {
@@ -46,6 +49,9 @@ public class EnderecoWS implements Serializable {
 		this.identificador = identificador;
 	}
 	
+	@NotNull (message = "Campo obrigatório!1")
+	@NotEmpty(message = "Campo obrigatório!2")
+	@NotBlank (message = "Campo obrigatório!3")
 	public String getCep() {
 		return cep;
 	}
@@ -58,6 +64,8 @@ public class EnderecoWS implements Serializable {
 	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
 	}
+	
+	//@NotBlank (message = "Campo obrigatório!")
 	public String getComplemento() {
 		return complemento;
 	}
