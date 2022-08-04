@@ -73,7 +73,8 @@
                                 <div class="form-group row">
                                     <label for="cep" class="col-sm-3 col-form-label">Cep</label>
                                     <div class="col-sm-9">
-                                        <input id="cep" type="text" th:field="*{endereco.cep}"  class="form-control" />
+                                        <input id="cep" type="text" th:field="*{endereco.cep}"  class="form-control" th:errorclass="is-invalid" required="required" maxlength="9" />
+                                       <div class="invalid-feedback" th:errors="*{endereco.cep}"></div> 
                                     </div>
                                 </div>
                             </div>
@@ -119,7 +120,9 @@
 										
 										$.ajax({
 											//URL via cep mais parametro para consulta
-											url : 'https://viacep.com.br/ws/'+ $(this).val() + '/json/',
+											//url : 'https://viacep.com.br/ws/'+ $(this).val() + '/json/',
+											url : 'http://localhost:8080/api/cep/'+ $(this).val() +'/ws',
+											
 											dataType : 'json',
 											
 											success : function(resposta) {
@@ -127,7 +130,6 @@
 												$("#logradouro").val(resposta.logradouro);
 												$("#complemento").val(resposta.complemento);
 												$("#bairro").val(resposta.bairro);
-												
 												$("#complemento").focus();
 											}
 										});
