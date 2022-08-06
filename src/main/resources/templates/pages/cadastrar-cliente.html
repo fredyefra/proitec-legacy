@@ -113,28 +113,7 @@
                      
                     </form>
 
-                        <!-- Refatorar script -->
-						<script type="text/javascript">
-							$("#cep").focusout(
-									function() {
-										
-										$.ajax({
-											//URL via cep mais parametro para consulta
-											//url : 'https://viacep.com.br/ws/'+ $(this).val() + '/json/',
-											url : 'http://localhost:8080/api/cep/'+ $(this).val() +'/ws',
-											
-											dataType : 'json',
-											
-											success : function(resposta) {
-												
-												$("#logradouro").val(resposta.logradouro);
-												$("#complemento").val(resposta.complemento);
-												$("#bairro").val(resposta.bairro);
-												$("#complemento").focus();
-											}
-										});
-									});
-						</script>
+                        <script type="text/javascript" th:src="@{/js/script-cep.js}" src="../../static/js/script-cep.js"></script>
 
 					</div>
             </div>
