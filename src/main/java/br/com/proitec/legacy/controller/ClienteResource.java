@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,16 +37,22 @@ public class ClienteResource {
 	}
     
 	@RequestMapping(value = "/cadastrar-cliente", method = RequestMethod.POST)
-	public ModelAndView save(@Valid Cliente cliente, BindingResult validate, Model model, RedirectAttributes attributes) {
+	public ModelAndView save(@Valid Cliente cliente, BindingResult validate, RedirectAttributes attributes) {
 
 		if (validate.hasErrors()) { 
 		ModelAndView mv = new  ModelAndView("pages/cadastrar-cliente"); 
 		return   mv; 
 		}
-
-		service.save(cliente);
+     	service.save(cliente);
 		attributes.addFlashAttribute("message", "Cliente salvo com sucesso!");
-
 		return new ModelAndView("redirect:/pages/consultar-clientes");
 	}
+
+	@GetMapping(value = "/consultar-clientes/{id}") 
+	public String delete(@Valid @PathVariable Long id, Cliente cliente, RedirectAttributes attributes) {
+        service.delete(id);
+		attributes.addFlashAttribute("message", "Cliente excluído com sucesso!"); 
+        return "redirect:/pages/consultar-clientes";
+	}
+
 }
