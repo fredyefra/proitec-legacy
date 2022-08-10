@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -48,11 +49,18 @@ public class ClienteResource {
 		return new ModelAndView("redirect:/pages/consultar-clientes");
 	}
 
+	//@RequestMapping (value = "/consultar-clientes/{id}", method = RequestMethod.DELETE)
 	@GetMapping(value = "/consultar-clientes/{id}") 
-	public String delete(@Valid @PathVariable Long id, Cliente cliente, RedirectAttributes attributes) {
+	public String delete(@Valid @PathVariable Long id, RedirectAttributes attributes) {
         service.delete(id);
 		attributes.addFlashAttribute("message", "Cliente excluído com sucesso!"); 
         return "redirect:/pages/consultar-clientes";
 	}
 
+	//@GetMapping(value = "/consultar-clientes/{id}") 
+	@ResponseBody
+	@GetMapping(value = "/editar-cliente")
+	public Cliente update(Long id, Cliente obj) {
+        return service.update(id, obj);
+	}
 }
