@@ -27,6 +27,7 @@
 						<div class="table-responsive">
 							<table class="table table-bordered table table-hover text-center table table table-sm">
 								<thead>
+									
 									<tr>
 										<th>NOME</th>
 										<th>ENDEREÇO</th>
@@ -36,6 +37,7 @@
 									</tr>
 
 								</thead>
+								
 								<tbody>
 
 									<tr th:each="cliente: ${clientes}">
@@ -46,14 +48,15 @@
                                         <td th:text="${cliente.email}" />
 										<td>
 											<div class="text-center">
-                                             <a href="#EDITAR"><button id="editar" type="button" class="btn btn-warning">EDITAR</button> </a> 
+                                             <a   th:href="@{/pages/editar-cliente/(id = ${cliente.identificador})}" class="btn btn-warning eBtn1">EDITAR </a> 
 											 <a   th:href="@{/pages/consultar-clientes/{id}(id = ${cliente.identificador})}" class="btn btn-danger eBtn">EXCLUIR</a>
                                            </div>
 										</td>
 									</tr>
 								</tbody>
 							</table>
-						    <!-- INICIO MODAL -->
+						    
+						    <!-- INICIO MODAL EXCLUIR -->
 				            <div  class="myForm" >
 					          <div class="modal fade " tabindex="-1" id="modalQuestion"
 						        aria-labelledby="labelModalQuestion" aria-hidden="true">
@@ -71,17 +74,56 @@
 						          </div>
 					          </div>
 				            </div>
-				            <!-- FIM MODAL -->
+				            <!-- FIM MODAL EXCLUIR-->
+
+							<!-- INICIO MODAL EDITAR-->
+							<div  class="myForm2" >
+							  <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+							      <div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">EDITAR CLIENTE</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<form>
+												<div class="mb-3">
+													<label for="id" class="col-form-label">ID:</label>
+													<input type="text" class="form-control" id="id" name="id" value="" readonly="readonly" />
+												</div>
+												
+												<div class="mb-3">
+													<label for="nome" class="col-form-label">NOME:</label>
+													<input type="text" class="form-control" id="nome" name="nome" value=""/>
+												</div>
+											   
+											   <div class="mb-3">
+													<label for="telefone" class="col-form-label">TELEFONE:</label>
+													<input type="text" class="form-control" id="telefone" name="telefone" value=""/>
+												</div>
+											</form>
+										</div>
+							
+										<div class="modal-footer">
+											<!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">CANCELAR</button> -->
+											<button type="submit" class="btn btn-success mr-2">EDITAR</button> 
+										    <a class="btn btn-danger" th:href="@{/pages/dashboard}" role="button">CANCELAR<i class="fab fa-github ms-2"></i></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						    </div>
+							<!-- FIM MODAL EDITAR-->
+
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	   
+	   <script type="text/javascript" th:src="@{/js/script-mensagem.js}" src="../../static/js/script-mensagem.js"></script>
+	   <script type="text/javascript" th:src="@{/js/script-modal.js}" src="../../static/js/script-modal.js"></script>
 	
-	<script type="text/javascript" th:src="@{/js/script-mensagem.js}" src="../../static/js/script-mensagem.js"></script>
-	<script type="text/javascript" th:src="@{/js/script-modal.js}" src="../../static/js/script-modal.js"></script>
-	
-	</section>
-
-</body>
+	  </section>
+  </body>
 </html>
