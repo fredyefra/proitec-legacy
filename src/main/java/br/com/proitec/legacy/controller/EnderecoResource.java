@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.proitec.legacy.enderecows.EnderecoConsumer;
-import br.com.proitec.legacy.enderecows.EnderecoWS;
+import br.com.proitec.legacy.model.EnderecoWS;
 
 @RestController
 @RequestMapping(value = "api/cep")

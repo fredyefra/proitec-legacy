@@ -7,14 +7,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.proitec.legacy.enderecows.EnderecoConsumer;
 import br.com.proitec.legacy.model.Cliente;
+import br.com.proitec.legacy.model.EnderecoWS;
 import br.com.proitec.legacy.service.ClienteService;
 
 @Controller
@@ -24,43 +28,58 @@ public class ClienteResource {
 	@Autowired
 	private ClienteService service;
 
-	@GetMapping(value = "/consultar-clientes") 
+	@Autowired
+	private EnderecoConsumer enderecoConsumer;
+	
+	@RequestMapping(value = "/consultar-clientes", method = RequestMethod.GET) 
 	public ModelAndView  findAll() {
-		ModelAndView mv = new ModelAndView(); 
-		mv.addObject("clientes",service.findAll());
-		return mv; 
+		return new ModelAndView().addObject("clientes",service.findAll());
 	}
 	
-	@RequestMapping(value = "/cadastrar-cliente", method = RequestMethod.GET) 
-	public String decoratorAddCliente(Model model) { 
-		model.addAttribute("cliente",new Cliente());
-		return "pages/cadastrar-cliente"; 
-	}
-    
-	@RequestMapping(value = "/cadastrar-cliente", method = RequestMethod.POST)
+    @PostMapping(value = "/cadastrar-cliente")
 	public ModelAndView save(@Valid Cliente cliente, BindingResult validate, RedirectAttributes attributes) {
 
 		if (validate.hasErrors()) { 
-		ModelAndView mv = new  ModelAndView("pages/cadastrar-cliente"); 
-		return   mv; 
+		return new  ModelAndView("pages/cadastrar-cliente"); 
 		}
      	service.save(cliente);
 		attributes.addFlashAttribute("message", "Cliente salvo com sucesso!");
 		return new ModelAndView("redirect:/pages/consultar-clientes");
 	}
 
-	//@RequestMapping (value = "/consultar-clientes/{id}", method = RequestMethod.DELETE)
-	@GetMapping(value = "/consultar-clientes/{id}") 
-	public String delete(@Valid @PathVariable Long id, RedirectAttributes attributes) {
+	@GetMapping(value = "/excluir-cliente/{id}") 
+	public ModelAndView delete(@PathVariable Long id, RedirectAttributes attributes) {
         service.delete(id);
 		attributes.addFlashAttribute("message", "Cliente excluído com sucesso!"); 
-        return "redirect:/pages/consultar-clientes";
+		return new ModelAndView("redirect:/pages/consultar-clientes");
 	}
 
-	//@GetMapping(value = "/consultar-clientes/{id}") 
+	@ResponseBody
+	@RequestMapping(value = "/editar-cliente", method = RequestMethod.POST)
+	public ModelAndView update(@ModelAttribute("cep") String cep, Long id, Cliente cliente, RedirectAttributes attributes, BindingResult validate) {
+        
+		if (validate.hasErrors()) {
+			cliente.setIdentificador(id);
+			new ModelAndView("redirect:/pages/consultar-clientes");
+		}
+		
+		EnderecoWS endereco = enderecoConsumer.enderecoConsumer(cep);
+		cliente.setEndereco(endereco);
+		
+		service.update(id, cliente);
+		attributes.addFlashAttribute("message", "Alteração efetuada com sucesso!");
+		return new ModelAndView("redirect:/pages/consultar-clientes");
+    }
+	
 	@ResponseBody
 	@GetMapping(value = "/editar-cliente")
-	public Cliente update(Long id, Cliente obj) {
-        return service.update(id, obj);
+	public Cliente decoratorEdit(Long id, Model model) {
+	    return service.findById(id);
+	}
+	
+	@RequestMapping(value = "/cadastrar-cliente", method = RequestMethod.GET) 
+	public String decoratorAdd(Model model) { 
+		model.addAttribute("cliente",new Cliente());
+		return "pages/cadastrar-cliente"; 
 	}
 }

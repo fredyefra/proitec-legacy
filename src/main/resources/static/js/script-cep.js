@@ -20,7 +20,6 @@
 	$("#bairro").val(resposta.bairro);
 	$("#complemento").focus();
 	}
-	
 	});
 });
 	
@@ -47,5 +46,5 @@
 	$("#complemento").focus();
 	}
 	});
-	});
+ });
 	</script> */

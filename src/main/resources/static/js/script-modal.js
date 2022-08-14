@@ -29,10 +29,15 @@ $(document).ready(function(){
 	event.preventDefault();
 	var href = $(this).attr('href');
     
-    $.get(href,function(cliente){
-      $("#id").val(cliente.identificador);
-      $("#nome").val(cliente.nome);
-      $("#telefone").val(cliente.telefone);
+    $.get(href,function(cliente,status){
+      $('.myForm2 #id').val(cliente.identificador);
+      $('.myForm2 #nome').val(cliente.nome);
+      $('.myForm2 #telefone').val(cliente.telefone);
+      $('.myForm2 #email').val(cliente.email);
+      $('.myForm2 #cep').val(cliente.endereco.cep);
+      $('.myForm2 #bairro').val(cliente.endereco.bairro);
+      $('.myForm2 #logradouro').val(cliente.endereco.logradouro); 
+      $('.myForm2 #complemento').val(cliente.endereco.complemento)   
     });
     
 	$("#modalEdit").modal('show');
