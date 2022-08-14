@@ -1,7 +1,6 @@
 package br.com.proitec.legacy.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,27 +12,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import br.com.proitec.legacy.enderecows.EnderecoWS;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-public class Cliente extends AbstractPersistable<Long> implements Serializable    {
+public class Cliente implements Serializable    {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	//@Id
+	//@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long identificador;
 	private String nome;
 	private String telefone;
     private String email;
     private EnderecoWS endereco;
-    
-	private LocalDate dtCadastro;
 
 	public Cliente() {
 
@@ -62,9 +59,6 @@ public class Cliente extends AbstractPersistable<Long> implements Serializable  
 	@NotBlank (message = "Campo obrigatório!")
 	public String getTelefone() {return telefone;}
 	public void setTelefone(String telefone) {this.telefone = telefone;}
-
-	public LocalDate getDtCadastro() {return dtCadastro;}
-	public void setDtCadastro(LocalDate dtCadastro) {this.dtCadastro = dtCadastro;}
 
 	@Email(message = "Formato de email inválido!")
 	@NotBlank (message = "Campo obrigatório!")
