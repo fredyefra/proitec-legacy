@@ -6,6 +6,8 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -59,8 +61,11 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">E-mail</label>
                                     <div class="col-sm-9">
-                                        <input type="text" th:field="*{email}"  class="form-control" th:errorclass="is-invalid" />
-                                        <div class="invalid-feedback" th:errors="*{email}"></div>
+                                      <div class="input-group-prepend">
+                                       <div class="input-group-text">@</div>
+                                         <input type="text" th:field="*{email}"  class="form-control" th:errorclass="is-invalid" />
+                                       <div class="invalid-feedback" th:errors="*{email}"></div>
+                                      </div>
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +112,7 @@
                         </div>
                      
                      <div class="container my-4 text-center">
-						<button type="submit" class="btn btn-success mr-2">NOVO</button>
+						<button type="submit" class="btn btn-success mr-2"></button>
 						<a class="btn btn-danger" th:href="@{/pages/dashboard}" role="button">CANCELAR<i class="fab fa-github ms-2"></i></a>
 					</div>  
                      

@@ -62,7 +62,6 @@ public class ClienteResource {
 			cliente.setIdentificador(id);
 			new ModelAndView("redirect:/pages/consultar-clientes");
 		}
-		
 		EnderecoWS endereco = enderecoConsumer.enderecoConsumer(cep);
 		cliente.setEndereco(endereco);
 		
