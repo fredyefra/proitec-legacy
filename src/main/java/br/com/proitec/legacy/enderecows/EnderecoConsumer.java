@@ -10,6 +10,8 @@ import com.google.gson.reflect.TypeToken;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.UniformInterfaceException;
 
+import br.com.proitec.legacy.model.EnderecoWS;
+
 @Service
 public class EnderecoConsumer implements Serializable {
 
