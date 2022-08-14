@@ -43,13 +43,17 @@
 									<tr th:each="cliente: ${clientes}">
 
 										<td th:text="${cliente.nome}" />
-										<td th:text="${cliente.endereco}" />
+										<!-- <td th:text="'CEP: ' + ${cliente.endereco.cep} +  
+										             ' BAIRRO: ' + ${cliente.endereco.bairro} +
+										             ' LOGRADOURO: ' + ${cliente.endereco.logradouro} +
+										             ' COMPLEMENTO: ' + ${cliente.endereco.complemento}"/> --> 
+										<td th:text="${cliente.endereco}" /> 
 										<td th:text="${cliente.telefone}" />
                                         <td th:text="${cliente.email}" />
 										<td>
 											<div class="text-center">
                                              <a   th:href="@{/pages/editar-cliente/(id = ${cliente.identificador})}" class="btn btn-warning eBtn1">EDITAR </a> 
-											 <a   th:href="@{/pages/consultar-clientes/{id}(id = ${cliente.identificador})}" class="btn btn-danger eBtn">EXCLUIR</a>
+											 <a   th:href="@{/pages/excluir-cliente/{id}(id = ${cliente.identificador})}" class="btn btn-danger eBtn">EXCLUIR</a>
                                            </div>
 										</td>
 									</tr>
@@ -78,6 +82,7 @@
 
 							<!-- INICIO MODAL EDITAR-->
 							<div  class="myForm2" >
+							  <form th:action="@{/pages/editar-cliente}"  method="post">
 							  <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 								<div class="modal-dialog">
 							      <div class="modal-content">
@@ -86,32 +91,59 @@
 											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
 										<div class="modal-body">
-											<form>
+											
 												<div class="mb-3">
-													<label for="id" class="col-form-label">ID:</label>
-													<input type="text" class="form-control" id="id" name="id" value="" readonly="readonly" />
-												</div>
+													<!-- <label for="id" class="col-form-label">ID:</label> --> 
+													<input type="hidden" class="form-control" id="id" name="id" value="" readonly="readonly" />
+												</div> 
 												
 												<div class="mb-3">
 													<label for="nome" class="col-form-label">NOME:</label>
-													<input type="text" class="form-control" id="nome" name="nome" value=""/>
+													<input type="text" class="form-control" id="nome" name="nome"/>
 												</div>
 											   
 											   <div class="mb-3">
 													<label for="telefone" class="col-form-label">TELEFONE:</label>
 													<input type="text" class="form-control" id="telefone" name="telefone" value=""/>
 												</div>
-											</form>
+											
+											    <div class="mb-3">
+													<label for="email" class="col-form-label">E-MAIL:</label>
+													<input type="text" class="form-control" id="email" name="email" value=""/>
+												</div>
+											
+											   <div class="mb-3">
+													<label for="cep" class="col-form-label">CEP:</label>
+													<input type="text" class="form-control"  id="cep" name="cep"/>
+											   </div>
+											
+											   <div class="mb-3">
+													<label for="bairro" class="col-form-label">BAIRRO:</label>
+													<input type="text" class="form-control" id="bairro" name="bairro"  readonly="readonly"/>
+											   </div>
+							    
+							                   <div class="mb-3">
+													<label for="logradouro" class="col-form-label">LOGRADOURO:</label>
+													<input type="text" class="form-control" id="logradouro" name="logradouro"  readonly="readonly"/>
+											   </div>
+							                  
+							                   <div class="mb-3">
+													<label for="complemento" class="col-form-label">COMPLEMENTO:</label>
+													<input type="text" class="form-control" id="complemento" name="complemento"/>
+											   </div>
+							   				
 										</div>
 							
 										<div class="modal-footer">
 											<!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">CANCELAR</button> -->
-											<button type="submit" class="btn btn-success mr-2">EDITAR</button> 
-										    <a class="btn btn-danger" th:href="@{/pages/dashboard}" role="button">CANCELAR<i class="fab fa-github ms-2"></i></a>
+											<button type="submit" class="btn btn-success mr-2">ALTERAR"</button> 
+										    <a class="btn btn-danger" th:href="@{/pages/consultar-clientes}" role="button">CANCELAR<i class="fab fa-github ms-2"></i></a>
+										    <!-- <button type="submit" class="btn btn-success mr-2">NOVO</button> -->
 										</div>
 									</div>
 								</div>
 							</div>
+						    </form>
 						    </div>
 							<!-- FIM MODAL EDITAR-->
 
@@ -121,8 +153,9 @@
 			</div>
 		</div>
 	   
-	   <script type="text/javascript" th:src="@{/js/script-mensagem.js}" src="../../static/js/script-mensagem.js"></script>
 	   <script type="text/javascript" th:src="@{/js/script-modal.js}" src="../../static/js/script-modal.js"></script>
+	   <script type="text/javascript" th:src="@{/js/script-cep.js}" src="../../static/js/script-cep.js"></script> 
+	   <script type="text/javascript" th:src="@{/js/script-mensagem.js}" src="../../static/js/script-mensagem.js"></script>
 	
 	  </section>
   </body>
