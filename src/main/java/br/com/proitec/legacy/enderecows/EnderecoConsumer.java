@@ -12,6 +12,13 @@ import com.sun.jersey.api.client.UniformInterfaceException;
 
 import br.com.proitec.legacy.model.EnderecoWS;
 
+/**
+* Classe responsavel por desserializar o Json especificado em um objeto do tipo {@link EnderecoWS}
+*
+* @author proitec-legacy
+* @see EnderecoConsumer
+*/
+
 @Service
 public class EnderecoConsumer implements Serializable {
 

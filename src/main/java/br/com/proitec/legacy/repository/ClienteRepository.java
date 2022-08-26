@@ -6,6 +6,13 @@ import org.springframework.stereotype.Repository;
 
 import br.com.proitec.legacy.model.Cliente;
 
+/**
+* Interface que herda as operações da interface {@link JpaRepository} para banco de dados
+*
+* @author proitec-legacy
+* @see JpaRepository
+*/
+
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> , JpaSpecificationExecutor<Cliente> {
 
