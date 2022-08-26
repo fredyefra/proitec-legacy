@@ -21,9 +21,16 @@ import br.com.proitec.legacy.model.Cliente;
 import br.com.proitec.legacy.model.EnderecoWS;
 import br.com.proitec.legacy.service.ClienteService;
 
+/**
+* Classe responsavel por tratar as operações da view
+*
+* @author proitec-legacy
+* @see ClienteService 
+*/
+
 @Controller
 @RequestMapping(value = "pages")
-public class ClienteResource {
+public class ClienteController {
 
 	@Autowired
 	private ClienteService service;
