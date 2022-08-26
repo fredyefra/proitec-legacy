@@ -4,12 +4,12 @@
 <head>
     <title>Home</title>
 
+<!-- Script Jquery AND Boostrap-->
 <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}" src="../../static/js/jquery-3.6.0.min.js" ></script>
 <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"    src="../../static/js/bootstrap.min.js" ></script> 
 
+<!-- Style CSS Boostrap -->
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
-<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}"/> 
-<link rel="stylesheet" th:href="@{/css/all.css}"/>
 
 </head>
 <body>
@@ -21,7 +21,7 @@
         <div class="col-12 grid-margin">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">CADASTRAR CLIENTE</h4>
+                    <h4 class="card-title mb-4">CADASTRAR CLIENTE</h4>
                     <form class="form-sample" th:object="${cliente}" action="#" th:action="@{/pages/cadastrar-cliente}" method="post">
                         <p class="card-description">
                             Informações Pessoais
@@ -63,9 +63,9 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">E-mail</label>
                                     <div class="col-sm-9">
-                                      <div class="input-group-prepend">
+                                      <div class="input-group">
                                        <div class="input-group-text">@</div>
-                                         <input type="text" th:field="*{email}"  class="form-control" th:errorclass="is-invalid" />
+                                         <input type="text" th:field="*{email}"   class="form-control" th:errorclass="is-invalid" />
                                        <div class="invalid-feedback" th:errors="*{email}"></div>
                                       </div>
                                     </div>
