@@ -16,7 +16,7 @@ import br.com.proitec.legacy.specifications.ClienteSpecification;
 /**
 * Classe responsavel pelas operações na base de dados
 *
-* @author proitec-legacy
+* @author fredyefra
 * @see ClienteService 
 */
 

@@ -15,7 +15,7 @@ import br.com.proitec.legacy.model.EnderecoWS;
 /**
 * Classe responsavel por desserializar o Json especificado em um objeto do tipo {@link EnderecoWS}
 *
-* @author proitec-legacy
+* @author fredyefra
 * @see EnderecoConsumer
 */
 

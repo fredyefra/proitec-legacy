@@ -13,7 +13,7 @@ import br.com.proitec.legacy.service.ClienteService;
 /**
 * Realiza o inserte inicial na base de dados 
 *
-* @author proitec-legacy
+* @author fredyefra
 * @see DataService
 */
 
