@@ -6,16 +6,19 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import br.com.proitec.legacy.model.Cliente;
-import br.com.proitec.legacy.model.Cliente_;
 import br.com.proitec.legacy.repository.ClienteRepository;
+import br.com.proitec.legacy.specifications.ClienteSpecification;
+
+/**
+* Classe responsavel pelas operações na base de dados
+*
+* @author proitec-legacy
+* @see ClienteService 
+*/
 
 @Service
 public class ClienteService {
@@ -31,22 +34,21 @@ public class ClienteService {
 	}
 
 	/**
-	 * @param {@link int, int}
-	 * @return {@code Page}
+	 * @param {@link String}
+	 * @return {@code Collection List}
 	 */
-	public Page<Cliente> findAll(int pageNum,int pageSize) { 
-		Sort sort = Sort.by(Direction.ASC,Cliente_.identificador.toString());
-		Pageable pageable = PageRequest.of(pageNum, pageSize, sort);
-		return repository.findAll(pageable); 
+	public List<Cliente> findAll(String nome) { 
+		return repository.findAll(Specification.where(ClienteSpecification.byNome(nome))); 
 	}
 
 	/**
 	 * @param {@link Long}
 	 * @return {@code Optional}
 	 */
-	public Optional<Cliente> findById(Long id) {
+	public Cliente findById(Long id) {
 		Optional<Cliente>  optional = repository.findById(id);
-		return optional;
+		Cliente cliente = optional.get();
+		return cliente;
 	}
 
 	/**
@@ -77,9 +79,12 @@ public class ClienteService {
 	 * @param {@link Long, Cliente}
 	 * @return {@code Cliente}
 	 */
-	public Cliente update(Long id, Cliente obj) {
-		Optional<Cliente> optional = findById(id);
-		Cliente cliente = optional.get(); // 
+	public Cliente update(Long id, Cliente param) {
+		Cliente cliente = findById(id);
+		cliente.setNome(param.getNome());
+		cliente.setTelefone(param.getTelefone());
+		cliente.setEmail(param.getEmail());
+		cliente.setEndereco(param.getEndereco());
 		return repository.save(cliente);
 	}
 

@@ -4,15 +4,16 @@
 <head>
 <title>Home</title>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- Script Jquery - Modal  -->
+<script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}" src="../../static/js/jquery-3.6.0.min.js" ></script>
 
-<script>
-$(document).ready(function(){
-  $("#clickDiv").click(function(){
-    $("#clickDiv").fadeOut("slow");
-  });
-});
-</script>
+<!-- Script Boostrap -->
+<script type="text/javascript" th:src="@{/js/bootstrap.bundle.js}" src="../../static/js/bootstrap.bundle.js" ></script>  
+<script type="text/javascript" th:src="@{/js/bootstrap.bundle.min.js}" src="../../static/js/bootstrap.bundle.min.js" ></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"    src="../../static/js/bootstrap.min.js" ></script>  
+
+<!-- Style CSS Boostrap -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
 
 </head>
 <body>
@@ -23,53 +24,160 @@ $(document).ready(function(){
 				<div class="card">
 					<div class="card-body">
 						
-						<div id="clickDiv" class="alert alert-primary" role="alert" th:text="${message}" th:if="${message}"></div>
+						 <div id="divMensagem" class="alert alert-primary" role="alert" th:text="${message}" th:if="${message}"></div> 
 						
 						<h4 class="card-title">CLIENTES CADASTRADOS</h4>
 
 						<a href="cadastrar-cliente">
-							<button id="cadastrar" type="button" class="btn btn-primary">NOVO</button>
+							<button id="cadastrar" type="button" class="btn btn-primary mb-3">NOVO</button>
 						</a>
                          
-                        <br> 
-
-						<div class="table-responsive">
-							<table class="table table-bordered table table-hover text-center table table table-sm">
+						<div class="table-responsive-lg">
+							<table class="table table-bordered table table-hover text-center">
 								<thead>
+									
 									<tr>
 										<th>NOME</th>
-										<th>ENDEREÇO</th>
 										<th>TELEFONE</th>
 										<th>E-MAIL</th>
+										<th>ENDEREÇO</th>
 										<th>AÇÕES</th>
 									</tr>
 
 								</thead>
+								
 								<tbody>
 
 									<tr th:each="cliente: ${clientes}">
 
 										<td th:text="${cliente.nome}" />
-										<td th:text="${cliente.endereco}" />
+										<!-- <td th:text="'CEP: ' + ${cliente.endereco.cep} +  
+										             ' BAIRRO: ' + ${cliente.endereco.bairro} +
+										             ' LOGRADOURO: ' + ${cliente.endereco.logradouro} +
+										             ' COMPLEMENTO: ' + ${cliente.endereco.complemento}"/> --> 
 										<td th:text="${cliente.telefone}" />
                                         <td th:text="${cliente.email}" />
+										<td th:text="${cliente.endereco}" />
 										<td>
 											<div class="text-center">
-
-												<a href="#EDITAR"><button id="editar" type="button" class="btn btn-warning">EDITAR</button> </a> 
-												<a href="#EXCLUIR"><button id="excluir" type="button" class="btn btn-danger">EXCLUIR</button> </a>
-
-											</div>
+                                             <a   th:href="@{/pages/editar-cliente/(id = ${cliente.identificador})}" class="btn btn-warning eBtn1">EDITAR </a> 
+											 <a   th:href="@{/pages/excluir-cliente/{id}(id = ${cliente.identificador})}" class="btn btn-danger eBtn">EXCLUIR</a>
+                                           </div>
 										</td>
 									</tr>
 								</tbody>
+							
 							</table>
+
+                            <!-- INICIO PAGINACAO -->  
+							<nav aria-label="Page navigation example">
+								<ul class="pagination justify-content-center">
+									<li class="page-item disabled"><a class="page-link"
+										href="#" tabindex="-1" aria-disabled="true">Anterior</a></li>
+									<li class="page-item"><a class="page-link" href="#">1</a></li>
+									<li class="page-item"><a class="page-link" href="#">2</a></li>
+									<li class="page-item"><a class="page-link" href="#">3</a></li>
+									<li class="page-item"><a class="page-link" href="#">Próxima</a>
+									</li>
+								</ul>
+							</nav>
+                            <!-- FIM PAGINACAO -->
+                             
+							<!-- INICIO MODAL EXCLUIR -->
+				            <div  class="myForm" >
+					          <div class="modal fade " tabindex="-1" id="modalQuestion"
+						        aria-labelledby="labelModalQuestion" aria-hidden="true">
+						          <div class="modal-dialog">
+							        <div class="modal-content">
+								      <div class="modal-header">
+									    <h5 class="modal-title" id="labelModalQuestion">Deseja realmente excluir este cliente?</h5>
+									      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								      </div>
+								       <div class="modal-body center">
+									    <a th:href="@{/pages/consultar-clientes}" class="btn btn-primary"role="button">NÃO<i class="fa-solid fa-trash"></i></a>
+								 	     <a href="" class="btn btn-danger"  id="delRef">SIM</a>
+								      </div>
+							        </div>
+						          </div>
+					          </div>
+				            </div>
+				            <!-- FIM MODAL EXCLUIR-->
+
+							<!-- INICIO MODAL EDITAR-->
+							<div  class="myForm2" >
+							  <form th:action="@{/pages/editar-cliente}"  method="post">
+							  <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+							      <div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">EDITAR CLIENTE</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											
+												<div class="mb-3">
+													<!-- <label for="id" class="col-form-label">ID:</label> --> 
+													<input type="hidden" class="form-control" id="id" name="id" value="" readonly="readonly" />
+												</div> 
+												
+												<div class="mb-3">
+													<label for="nome" class="col-form-label">NOME:</label>
+													<input type="text" class="form-control" id="nome" name="nome"/>
+												</div>
+											   
+											   <div class="mb-3">
+													<label for="telefone" class="col-form-label">TELEFONE:</label>
+													<input type="text" class="form-control" id="telefone" name="telefone" value=""/>
+												</div>
+											
+											    <div class="mb-3">
+													<label for="email" class="col-form-label">E-MAIL:</label>
+													<input type="text" class="form-control" id="email" name="email" value=""/>
+												</div>
+											
+											   <div class="mb-3">
+													<label for="cep" class="col-form-label">CEP:</label>
+													<input type="text" class="form-control"  id="cep" name="cep"/>
+											   </div>
+											
+											   <div class="mb-3">
+													<label for="bairro" class="col-form-label">BAIRRO:</label>
+													<input type="text" class="form-control" id="bairro" name="bairro"  readonly="readonly"/>
+											   </div>
+							    
+							                   <div class="mb-3">
+													<label for="logradouro" class="col-form-label">LOGRADOURO:</label>
+													<input type="text" class="form-control" id="logradouro" name="logradouro"  readonly="readonly"/>
+											   </div>
+							                  
+							                   <div class="mb-3">
+													<label for="complemento" class="col-form-label">COMPLEMENTO:</label>
+													<input type="text" class="form-control" id="complemento" name="complemento"/>
+											   </div>
+							   			</div>
+							
+										<div class="modal-footer">
+											<!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">CANCELAR</button> -->
+											<button type="submit" class="btn btn-success mr-2">ALTERAR</button> 
+										    <a class="btn btn-danger" th:href="@{/pages/consultar-clientes}" role="button">CANCELAR<i class="fab fa-github ms-2"></i></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						    </form>
+						    </div>
+							<!-- FIM MODAL EDITAR-->
+
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
-	</section>
-</body>
+	   
+	   <script type="text/javascript" th:src="@{/js/script-modal.js}" src="../../static/js/script-modal.js"></script>
+	   <script type="text/javascript" th:src="@{/js/script-cep.js}" src="../../static/js/script-cep.js"></script> 
+	   <script type="text/javascript" th:src="@{/js/script-mensagem.js}" src="../../static/js/script-mensagem.js"></script>
+	
+	  </section>
+  </body>
 </html>

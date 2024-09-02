@@ -3,8 +3,17 @@
       layout:decorator="layout">
 <head>
     <title>Home</title>
+
+<!-- Script Jquery AND Boostrap-->
+<script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}" src="../../static/js/jquery-3.6.0.min.js" ></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"    src="../../static/js/bootstrap.min.js" ></script> 
+
+<!-- Style CSS Boostrap -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+
 </head>
 <body>
+
 <section layout:fragment="content">
 
     <div class="row">
@@ -12,7 +21,7 @@
         <div class="col-12 grid-margin">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">CADASTRAR CLIENTE</h4>
+                    <h4 class="card-title mb-4">CADASTRAR CLIENTE</h4>
                     <form class="form-sample" th:object="${cliente}" action="#" th:action="@{/pages/cadastrar-cliente}" method="post">
                         <p class="card-description">
                             Informações Pessoais
@@ -54,8 +63,11 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">E-mail</label>
                                     <div class="col-sm-9">
-                                        <input type="text" th:field="*{email}"  class="form-control" th:errorclass="is-invalid" />
-                                        <div class="invalid-feedback" th:errors="*{email}"></div>
+                                      <div class="input-group">
+                                       <div class="input-group-text">@</div>
+                                         <input type="text" th:field="*{email}"   class="form-control" th:errorclass="is-invalid" />
+                                       <div class="invalid-feedback" th:errors="*{email}"></div>
+                                      </div>
                                     </div>
                                 </div>
                             </div>
@@ -66,35 +78,36 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Cep</label>
+                                    <label for="cep" class="col-sm-3 col-form-label">Cep</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" />
+                                        <input id="cep" type="text" th:field="*{endereco.cep}"  class="form-control" th:errorclass="is-invalid" required="required" maxlength="9" />
+                                       <div class="invalid-feedback" th:errors="*{endereco.cep}"></div> 
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Endereço</label>
+                                    <label  for="bairro" class="col-sm-3 col-form-label">Bairro</label>
                                     <div class="col-sm-9">
-                                        <input type="text" th:field="*{endereco}" class="form-control" />
+                                        <input id="bairro" type="text" th:field="*{endereco.bairro}" class="form-control" readonly="readonly" />
                                     </div>
                                 </div>
-                            </div>
+                            </div> 
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Complemento</label>
+                                    <label  for="complemento" class="col-sm-3 col-form-label">Complemento</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" />
+                                        <input  id="complemento" type="text" th:field="*{endereco.complemento}" class="form-control" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Cidade</label>
+                                    <label for="logradouro"  class="col-sm-3 col-form-label">Logradouro</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" />
+                                        <input id="logradouro"  type="text" th:field="*{endereco.logradouro}" class="form-control" readonly="readonly"/>
                                     </div>
                                 </div>
                             </div>
@@ -102,17 +115,18 @@
                      
                      <div class="container my-4 text-center">
 						<button type="submit" class="btn btn-success mr-2">NOVO</button>
-						<a class="btn btn-danger" th:href="@{/pages/dashboard}" role="button">CANCELAR<i class="fab fa-github ms-2"></i></a>
+						<a class="btn btn-danger" th:href="@{/pages/dashboard}" role="button">CANCELAR<i class="fab fa-github"></i></a>
 					</div>  
                      
-                         
                     </form>
-                </div>
+
+                        <script type="text/javascript" th:src="@{/js/script-cep.js}" src="../../static/js/script-cep.js"></script> 
+
+					</div>
             </div>
         </div>
         
     </div>
-
 
 </section>
 </body>
