@@ -17,7 +17,7 @@ import br.com.proitec.legacy.service.ClienteService;
 /**
 * Disponibiliza os recursos de Cliente 
 *
-* @author proitec-legacy
+* @author fredyefra
 * @see EnderecoConsumer
 */
 

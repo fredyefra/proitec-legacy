@@ -24,7 +24,7 @@ import br.com.proitec.legacy.service.ClienteService;
 /**
 * Classe responsavel por tratar as operações da view
 *
-* @author proitec-legacy
+* @author fredyefra
 * @see ClienteService 
 */
 

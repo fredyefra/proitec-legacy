@@ -9,7 +9,7 @@ import br.com.proitec.legacy.model.Cliente;
 /**
 * Interface que herda as operações da interface {@link JpaRepository} para banco de dados
 *
-* @author proitec-legacy
+* @author fredyefra
 * @see JpaRepository
 */
 

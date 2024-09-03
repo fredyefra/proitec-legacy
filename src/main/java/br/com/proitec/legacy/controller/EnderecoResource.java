@@ -14,7 +14,7 @@ import br.com.proitec.legacy.model.EnderecoWS;
 /**
 * Disponibiliza o recurso de CEP da classe {@link EnderecoConsumer} para a classe {@link EnderecoWS}
 *
-* @author proitec-legacy
+* @author fredyefra
 * @see EnderecoConsumer
 */
 
