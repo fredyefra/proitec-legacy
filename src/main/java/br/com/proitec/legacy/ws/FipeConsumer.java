@@ -1,17 +1,21 @@
-package br.com.proitec.legacy.enderecows;
+package br.com.proitec.legacy.ws;
 
-import br.com.proitec.legacy.enderecows.supplier.SupplierWebClient;
 import br.com.proitec.legacy.model.FipeVeiculoWS;
+import br.com.proitec.legacy.ws.supplier.SupplierWebClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Service
 public class FipeConsumer implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private static final Logger log = LoggerFactory.getLogger(FipeConsumer.class);
 
     private SupplierWebClient<WebClient> webClientSupplier;
 
@@ -19,27 +23,29 @@ public class FipeConsumer implements Serializable {
         webClientSupplier = () -> WebClient.create("https://fipe.parallelum.com.br");
     }
 
-    public List<FipeVeiculoWS> veiculoTipo (final String veiculoTipo){
+    protected Flux<FipeVeiculoWS> veiculoTipo (final String veiculoTipo){
 
         //exemplo veiculo tipo: "cars" "motorcycles" "trucks"
 
-        //SupplierWebClient<WebClient> webClientSupplier = () -> WebClient.create("https://fipe.parallelum.com.br");
-
         WebClient webClient = this.webClientSupplier.get();
 
-                return webClient
+        Flux<FipeVeiculoWS> fipeVeiculoWS = webClient
                 .get()
                 .uri(uriBuilder -> uriBuilder.path("/api")
                         .path("/v2/")
                         .path(veiculoTipo)
                         .path("/brands/")
                         .build())
-                        .header("Content-Type", "application/json")
-                        .accept(org.springframework.http.MediaType.APPLICATION_JSON)
-                        //.header("X-Subscription-Token","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZW1haWwiOiJleGFtcGxlLmNvbSIsImlhdCI6MTUxNjIzOTAyMn0.CmNu23cNxIhxZa9TABqIPD2t3Ja6Vmu_B0l2DJfiIaA")
+                .header("Content-Type", "application/json")
+                .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToFlux(FipeVeiculoWS.class)
-                .collectList()
-                .block();
+                .bodyToFlux(FipeVeiculoWS.class);
+
+        fipeVeiculoWS.subscribe(resultado -> log.info("# {}", resultado));
+
+        log.info("# {}", veiculoTipo);
+
+        return fipeVeiculoWS;
+
     }
 }

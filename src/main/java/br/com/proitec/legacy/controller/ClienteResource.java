@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.proitec.legacy.enderecows.EnderecoConsumer;
+import br.com.proitec.legacy.ws.EnderecoConsumer;
 import br.com.proitec.legacy.model.Cliente;
 import br.com.proitec.legacy.service.ClienteService;
 

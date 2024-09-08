@@ -1,4 +1,4 @@
-package br.com.proitec.legacy.enderecows.supplier;
+package br.com.proitec.legacy.ws.supplier;
 
 import java.util.function.Supplier;
 
