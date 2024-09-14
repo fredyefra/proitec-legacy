@@ -16,8 +16,7 @@ public class FipeConsumer implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private static final Logger log = LoggerFactory.getLogger(FipeConsumer.class);
-
-    private SupplierWebClient<WebClient> webClientSupplier;
+    private final SupplierWebClient<WebClient> webClientSupplier;
 
     protected FipeConsumer(){
         webClientSupplier = () -> WebClient.create("https://fipe.parallelum.com.br");
