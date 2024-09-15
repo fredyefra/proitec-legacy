@@ -1,7 +1,9 @@
 package br.com.proitec.legacy.controller;
 
+import javax.inject.Inject;
 import javax.validation.Valid;
 
+import br.com.proitec.legacy.ws.EnderecoResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,9 +37,9 @@ public class ClienteController {
 	@Autowired
 	private ClienteService service;
 
-	@Autowired
-	private EnderecoConsumer enderecoConsumer;
-	
+	@Inject
+	private EnderecoResource enderecoResource;
+
 	@RequestMapping(value = "/consultar-clientes", method = RequestMethod.GET) 
 	public ModelAndView  findAll() {
 		return new ModelAndView().addObject("clientes",service.findAll());
@@ -69,7 +71,7 @@ public class ClienteController {
 			cliente.setIdentificador(id);
 			new ModelAndView("redirect:/pages/consultar-clientes");
 		}
-		EnderecoWS endereco = enderecoConsumer.enderecoConsumer(cep);
+		EnderecoWS endereco = enderecoResource.findCep(cep);
 		cliente.setEndereco(endereco);
 		
 		service.update(id, cliente);

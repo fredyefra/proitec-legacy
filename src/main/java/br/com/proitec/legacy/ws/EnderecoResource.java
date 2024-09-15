@@ -11,21 +11,28 @@ import reactor.core.publisher.Mono;
 import javax.ws.rs.core.MediaType;
 
 /**
-* Disponibiliza o recurso endereço da classe {@link EnderecoConsumer} para qualquer classe 'consumidoras' de endereços
-*
-* @author fredyefra
-* @see EnderecoConsumer
-*/
+ * Disponibiliza o recurso endereço da classe {@link EnderecoConsumer} para qualquer classe 'consumidora' de endereços
+ *
+ * @author fredyefra
+ * @see EnderecoConsumer
+ */
 
 @RestController
 @RequestMapping(value = "api/cep")
 public class EnderecoResource {
 
-	    @Autowired
-	    private EnderecoConsumer enderecoConsumer;
+    @Autowired
+    private EnderecoConsumer enderecoConsumer;
 
-	    @GetMapping(value = "/{cep}/ws", produces = MediaType.APPLICATION_JSON)
-		public Mono<EnderecoWS> findCep(@PathVariable String cep) {
-	    	return enderecoConsumer.enderecoConsumerv2(cep);
-	    }
-	}	
+    @GetMapping(value = "/{cep}/ws", produces = MediaType.APPLICATION_JSON)
+    public EnderecoWS findCep(@PathVariable String cep) {
+        return enderecoConsumer
+                .enderecoConsumerv2(cep)
+                .block();
+    }
+
+    //@GetMapping(value = "/{cep}/ws", produces = MediaType.APPLICATION_JSON)
+    public Mono<EnderecoWS> findCep2(@PathVariable String cep) {
+        return enderecoConsumer.enderecoConsumerv2(cep);
+    }
+}

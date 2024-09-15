@@ -72,7 +72,10 @@ public class EnderecoConsumer implements Serializable {
                 .retrieve()
                 .bodyToMono(EnderecoWS.class);
 
-        enderecoWS.subscribe(endereco -> log.info("# {}", endereco));
+        enderecoWS.subscribe(
+                sucesso -> log.info("# {}", sucesso),
+                falha ->   log.error ("# {}", falha)
+        );
 
         log.info("# {}", cep);
 
