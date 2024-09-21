@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.io.Serializable;
 
@@ -39,6 +40,32 @@ public class FipeConsumer implements Serializable {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToFlux(FipeVeiculoWS.class);
+
+        fipeVeiculoWS.subscribe(resultado -> log.info("# {}", resultado));
+
+        log.info("# {}", veiculoTipo);
+
+        return fipeVeiculoWS;
+
+    }
+
+    protected Mono<FipeVeiculoWS> veiculoTipoMono (final String veiculoTipo){
+
+        //exemplo veiculo tipo: "cars" "motorcycles" "trucks"
+
+        WebClient webClient = this.webClientSupplier.get();
+
+        Mono<FipeVeiculoWS> fipeVeiculoWS = webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder.path("/api")
+                        .path("/v2/")
+                        .path(veiculoTipo)
+                        .path("/brands/")
+                        .build())
+                .header("Content-Type", "application/json")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(FipeVeiculoWS.class);
 
         fipeVeiculoWS.subscribe(resultado -> log.info("# {}", resultado));
 
