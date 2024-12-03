@@ -31,7 +31,7 @@ public class Cliente implements Serializable    {
 	private String telefone;
     private String email;
     private EnderecoWS endereco;
-
+    private FipeVeiculoWS fipeVeiculo;
 	public Cliente() {
 
 	}
@@ -77,7 +77,18 @@ public class Cliente implements Serializable    {
 	@JoinColumn(name = "ENDERECO_FK")
 	public  EnderecoWS getEndereco() {return endereco;}
 	public void setEndereco(EnderecoWS endereco) {this.endereco = endereco;}
-	
+
+	@OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+	@JoinColumn(name = "FIPE_FK")
+	public FipeVeiculoWS getFipeVeiculo() {
+		return fipeVeiculo;
+	}
+
+
+	public void setFipeVeiculo(FipeVeiculoWS fipeVeiculo) {
+		this.fipeVeiculo = fipeVeiculo;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

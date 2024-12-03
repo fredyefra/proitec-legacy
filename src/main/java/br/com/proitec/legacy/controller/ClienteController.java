@@ -1,33 +1,25 @@
 package br.com.proitec.legacy.controller;
 
-import javax.inject.Inject;
-import javax.validation.Valid;
 
+import br.com.proitec.legacy.model.Cliente;
+import br.com.proitec.legacy.model.EnderecoWS;
+import br.com.proitec.legacy.service.ClienteService;
 import br.com.proitec.legacy.ws.EnderecoResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.proitec.legacy.ws.EnderecoConsumer;
-import br.com.proitec.legacy.model.Cliente;
-import br.com.proitec.legacy.model.EnderecoWS;
-import br.com.proitec.legacy.service.ClienteService;
+import javax.validation.Valid;
 
 /**
 * Classe responsavel por tratar as operações da view
 *
 * @author fredyefra
-* @see ClienteService 
+* @see ClienteService
 */
 
 @Controller
@@ -37,7 +29,7 @@ public class ClienteController {
 	@Autowired
 	private ClienteService service;
 
-	@Inject
+	@Autowired
 	private EnderecoResource enderecoResource;
 
 	@RequestMapping(value = "/consultar-clientes", method = RequestMethod.GET) 
